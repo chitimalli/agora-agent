@@ -8,7 +8,7 @@
 
 ## 🌟 Revolutionary Features
 
-### � **Real-Time Lip Sync Technology**
+### 🎤 **Real-Time Lip Sync Technology**
 - **WebAudio API Integration** - Analyzes live audio in real-time
 - **Advanced Viseme Processing** - Maps speech sounds to realistic mouth shapes
 - **Morph Target Animation** - 20+ facial morph targets for natural expressions
