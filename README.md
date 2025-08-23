@@ -4,8 +4,6 @@
 
 > **Advanced 3D Avatar with Agora ConvoAI Integration and Real-Time Lip Synchronization**
 
-![Video Thumbnail](https://img.youtube.com/vi/EzzcEL_1o9o/maxresdefault.jpg)
-
 ## 🌟 Revolutionary Features
 
 ### 🎤 **Real-Time Lip Sync Technology**
