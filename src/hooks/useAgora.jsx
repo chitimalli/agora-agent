@@ -1220,13 +1220,66 @@ export const AgoraProvider = ({ children }) => {
     }
   }, [client, isJoined, localAudioTrack, stopConvoAIAgent]);
 
-  // Send message to ConvoAI (for compatibility with useChat)
-  const sendMessageToConvoAI = useCallback(async (message) => {
-    console.log('Message will be processed by ConvoAI Agent via voice:', message);
-    // In this implementation, text messages are automatically converted to voice
-    // by the ConvoAI Agent when it receives the audio from the user's microphone
-    return true;
-  }, []);
+  // Update ConvoAI Agent configuration
+  const updateConvoAIConfigs = useCallback(async (configUpdates) => {
+    if (!agentId) {
+      console.warn('No agent ID available - cannot update configuration');
+      return false;
+    }
+    
+    try {
+      console.log('Updating ConvoAI Agent configuration...');
+      
+      // Get current configuration
+      const agoraConfig = getAgoraConfig();
+      const convoaiConfig = getConvoAIConfig();
+      
+      // Generate auth header
+      const authHeader = generateBasicAuthHeader();
+      if (!authHeader) {
+        console.error('❌ Failed to generate auth header - check API Key and Password');
+        return false;
+      }
+      
+      // Construct the API URL - POST /projects/:appid/agents/:agentId/update
+      const apiUrl = `${convoaiConfig.baseUrl}/projects/${agoraConfig.appId}/agents/${agentId}/update`;
+      
+      // Build the request body with provided config updates
+      const requestBody = {
+        properties: {
+          ...configUpdates
+        }
+      };
+      
+      console.log('🔄 ConvoAI Agent Update Request:', {
+        url: apiUrl,
+        agentId: agentId,
+        body: requestBody
+      });
+      
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': authHeader,
+        },
+        body: JSON.stringify(requestBody),
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`ConvoAI Update API Error (${response.status}): ${errorText}`);
+      }
+      
+      const result = await response.json();
+      console.log('✅ ConvoAI Agent configuration updated successfully:', result);
+      
+      return result;
+    } catch (error) {
+      console.error('Failed to update ConvoAI Agent configuration:', error);
+      throw error;
+    }
+  }, [agentId]);
 
   // Test function to trigger agent speech
   const triggerAgentSpeech = useCallback(async () => {
@@ -1286,7 +1339,7 @@ export const AgoraProvider = ({ children }) => {
     chatHistory,
     joinChannel,
     leaveChannel,
-    sendMessageToConvoAI,
+    updateConvoAIConfigs,
     startConvoAIAgent,
     stopConvoAIAgent,
     triggerAgentSpeech,
