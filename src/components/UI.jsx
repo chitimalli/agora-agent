@@ -154,6 +154,54 @@ export const UI = ({ hidden, currentExpression, setCurrentExpression, currentAni
                   <p className="text-blue-600">
                     🎤 Audio Level: {(audioLevel * 100).toFixed(1)}%
                   </p>
+                  {/* Connect/Disconnect Button */}
+                  <div className="mt-3 pt-2 border-t border-gray-300">
+                    {!isJoined ? (
+                      <button
+                        onClick={joinChannel}
+                        className="pointer-events-auto bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 w-full justify-center"
+                        title="Connect to ConvoAI Channel"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
+                          />
+                        </svg>
+                        Connect
+                      </button>
+                    ) : (
+                      <button
+                        onClick={leaveChannel}
+                        className="pointer-events-auto bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2 w-full justify-center"
+                        title="Disconnect from ConvoAI Channel"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M5.25 7.5A2.25 2.25 0 017.5 9.75V15a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 15V9.75A2.25 2.25 0 013.75 7.5H5.25z"
+                          />
+                        </svg>
+                        Disconnect
+                      </button>
+                    )}
+                  </div>
                 </div>
               )}
             </div>
@@ -317,54 +365,6 @@ export const UI = ({ hidden, currentExpression, setCurrentExpression, currentAni
                 </>
               )}
             </div>
-          </div>
-          {/* Join/Connect Button - Always visible */}
-          <div className="flex gap-2 items-center">
-            {!isJoined ? (
-              <button
-                onClick={joinChannel}
-                className="pointer-events-auto bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
-                title="Connect to ConvoAI Channel"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M12 18.75a6 6 0 006-6v-1.5m-6 7.5a6 6 0 01-6-6v-1.5m6 7.5v3.75m-3.75 0h7.5M12 15.75a3 3 0 01-3-3V4.5a3 3 0 116 0v8.25a3 3 0 01-3 3z"
-                  />
-                </svg>
-                Connect
-              </button>
-            ) : (
-              <button
-                onClick={leaveChannel}
-                className="pointer-events-auto bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium transition-colors flex items-center gap-2"
-                title="Disconnect from ConvoAI Channel"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-4 h-4"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M5.25 7.5A2.25 2.25 0 017.5 9.75V15a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 15V9.75A2.25 2.25 0 013.75 7.5H5.25z"
-                  />
-                </svg>
-                Disconnect
-              </button>
-            )}
           </div>
           
           {/* Settings Button */}
